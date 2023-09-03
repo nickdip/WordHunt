@@ -20,14 +20,9 @@ class Board{
 }
 
 
-const findWord = function(board, word) {
-    const board = new Board(word);
-
-    let result;
+function findWord(board, word) {
     
-    const visited = [];
-    
-    const dfs = (i, j, node, check) => {
+    const searching = (i, j, node, check) => {
 
         let ijCurrent = `${i}${j}`;
 
@@ -45,20 +40,27 @@ const findWord = function(board, word) {
            return   
         }
         
-        dfs(i, j+1, node, check)
-        dfs(i, j-1, node, check)
-        dfs(i-1, j, node, check)
-        dfs(i+1, j, node, check)
+     searching(i, j+1, node, check)
+     searching(i, j-1, node, check)
+     searching(i-1, j, node, check)
+     searching(i+1, j, node, check)
         
         ijCurrentIndex = visited.indexOf(ijCurrent);
         visited.splice(ijCurrentIndex, 1);
         
     }
     
+    const board = new Board(word);
+
+    let result;
+    
+    const visited = [];
+    
+
     for(let i = 0; i < board.length; i++){
         for(let j = 0; j < board[0].length; j++){
             if(board.root[board[i][j]]){
-                dfs(i, j, board.root, "")
+             searching(i, j, board.root, "")
             }
         }
     }
