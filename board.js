@@ -1,3 +1,4 @@
+
 class Board{
     constructor(word){
         this.root = {}
