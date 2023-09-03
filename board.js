@@ -1,3 +1,4 @@
+
 class Board{
     constructor(word){
         this.root = {}
@@ -21,7 +22,7 @@ class Board{
 
 
 function findWord(board, word) {
-    
+
     const searching = (i, j, node, check) => {
 
         let ijCurrent = `${i}${j}`;
