@@ -21,11 +21,7 @@ class Board{
 
 
 function findWord(board, word) {
-<<<<<<< HEAD
 
-=======
-    //use dfs
->>>>>>> 9f461df2d373e4866b44f0b3ce62361f6f444641
     const searching = (i, j, node, check) => {
 
         let ijCurrent = `${i}${j}`;
