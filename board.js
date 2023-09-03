@@ -19,7 +19,6 @@ class Board{
     
 }
 
-
 function findWord(board, word) {
 
     const searching = (i, j, node, check) => {
