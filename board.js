@@ -20,7 +20,7 @@ class Board{
 }
 
 function findWord(board, word) {
-
+    //use dfs
     const searching = (i, j, node, check) => {
 
         let ijCurrent = `${i}${j}`;
