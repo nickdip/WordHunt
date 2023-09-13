@@ -65,9 +65,4 @@ class findWord {
 
 }
 
-board = [["C", "A", "L"], ["R", "P", "A"], ["C", "A", "T"]]
-
-newSearch = new findWord(board, "ZZZ")
-
-
 module.exports = { findWord }
