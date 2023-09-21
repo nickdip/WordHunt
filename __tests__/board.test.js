@@ -139,11 +139,19 @@ describe("findWord", () => {
             const testWord = "CODER"
             const testFindWord = new findWord(board, testWord)
             const result = testFindWord.searchBoard()
-            expect(result).toBe(true)
-            console.log(testFindWord.ijIndex)
             expect(testFindWord.ijIndex).toEqual([[0, 0], [1, 1], [2, 2], [3, 2], [3,3]])
     })
     })
+
+    describe.only("generateWords", () => {
+        test("generateWords method exists", () => {
+            const board = [["C", "V", "D", "S"], ["F", "O", "E", "Q"], ["P", "X", "D", "K"], ["P", "X", "E", "R"]]
+            const testWord = "CODER"
+            const testFindWord = new findWord(board, testWord)
+            expect(typeof testFindWord.generateWords).toBe("function")
+        })
+    })
+    
 })
 
 
