@@ -1,5 +1,5 @@
 const { findWord } = require("../board-class")
-
+const { readDictionary } = require("../words/createdics")
 
 //does not manipulate board
 //returns false when there are no matches
@@ -145,10 +145,55 @@ describe("findWord", () => {
 
     describe.only("generateWords", () => {
         test("generateWords method exists", () => {
-            const board = [["C", "V", "D", "S"], ["F", "O", "E", "Q"], ["P", "X", "D", "K"], ["P", "X", "E", "R"]]
-            const testWord = "CODER"
-            const testFindWord = new findWord(board, testWord)
+            const readDict = async () => { 
+                let dictionary = await readDictionary()
+                return dictionary
+            }
+            dict = readDict()
+            const board = [["C", "V", "D"], ["F", "O", "E"], ["P", "X", "D"], ["P", "X", "E"]]
+            const testFindWord = new findWord(board, dict)
             expect(typeof testFindWord.generateWords).toBe("function")
+        })
+
+        test("generates no words when given a board with no valid words", () => {
+            const readDict = async () => { 
+                let dictionary = await readDictionary()
+                return dictionary
+            }
+            dict = readDict()
+            const board = [["X", "X", "X"], ["X", "X", "X"], ["X", "X", "X"]]
+            const testFindWord = new findWord(board, dict)
+            expect(testFindWord.generateWords()).toEqual({
+                '2': {},
+                '3': {},
+                '4': {},
+                '5': {},
+                '6': {},
+                '7': {},
+                '8': {},
+                '9': {}
+              })
+        })
+
+        test.only("generates one valid word when provided", async () => {
+            const readDict = async () => { 
+                let dictionary = await readDictionary()
+                return dictionary
+            }
+            const dict = await readDict()
+            const board = [["Z", "A", "P"], ["-", "-", "-"], ["-", "-", "-"]]
+            const testFindWord = new findWord(board, dict)
+            console.log(testFindWord.generateWords())
+            expect(testFindWord.generateWords()).toEqual({
+                '2': {},
+                '3': {"ZAP": [[0,0], [0, 1], [1,1]]},
+                '4': {},
+                '5': {},
+                '6': {},
+                '7': {},
+                '8': {},
+                '9': {}
+              })
         })
     })
     

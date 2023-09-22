@@ -7,6 +7,7 @@
   "version": "1.0.0",
   "main": "board.js",
   "dependencies": {
+    "ajax": "^0.0.4",
     "ansi-escapes": "^4.3.2",
     "ansi-regex": "^5.0.1",
     "ansi-styles": "^4.3.0",
@@ -112,6 +113,7 @@
     "jest-validate": "^29.6.3",
     "jest-watcher": "^29.6.4",
     "jest-worker": "^29.6.4",
+    "jquery": "^3.7.1",
     "js-tokens": "^4.0.0",
     "js-yaml": "^3.14.1",
     "jsesc": "^2.5.2",
