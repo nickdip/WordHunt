@@ -1,6 +1,6 @@
-//TO DO: Re-evaluate scrabble dictionary
-//Continue testing generateWords method
-//create class to generate a new board 
+//TO DO: we want to bring back searchBoard, we want to provide a different error to the person if there link is found but it's not a valid word#
+//TO DO: Reflext on which variables are defined in the constructor and private
+//consider going back to checking if it's valid after 
 
 const { readDictionary } = require("./words/createdics")
 const { checkWord } = require("./findWords")
@@ -17,11 +17,65 @@ const readDictFun = async () => {
 
 class findWord {
     #visited
+    #remainingWord
     constructor(board, wordsDict) {
         this.board = board
         this.#visited = []  //keeps track of visited spaces
         this.wordsDict = wordsDict
-        this.ijIndex = []
+        this.#remainingWord = ""
+        this.ijRecord = []
+    }
+
+    searchBoard(word) {
+
+        if (!word) return false
+
+        const searching = (i, j) => {
+
+            if (wordTrack === word) return true
+            
+
+            let ijCurrent = `${i}${j}`
+
+            if (i < 0 || i >= this.board.length || j < 0 || j >= this.board[0].length || this.#visited.includes(ijCurrent)){
+                return false
+            }
+
+            this.#visited.push(ijCurrent)
+            const currentLetter = this.#remainingWord[0]
+
+            if (this.board[i][j] != currentLetter) {
+                this.#visited.pop()
+                return false 
+            }
+
+            this.#remainingWord = this.#remainingWord.slice(1)
+            wordTrack += currentLetter
+            this.ijRecord.push([i, j])
+
+            for (let const1 = -1; const1 <= 1; const1++) {
+                for (let const2 = -1; const2 <= 1; const2++) {
+                    if (!(const1 == 0 && const2 == 0) && searching(i + const1, j + const2)) return true
+                }
+            }
+
+            this.#visited.pop()
+            this.ijRecord.pop()
+            wordTrack = wordTrack.slice(0, -1)
+            this.#remainingWord = currentLetter + this.#remainingWord
+            
+        }
+
+        let wordTrack = ""
+        this.#remainingWord = word
+
+        for (let i = 0; i < this.board.length; i++) {
+            for (let j = 0; j < this.board[0].length; j++) {
+                if (searching(i, j)) return true
+
+        }}
+
+    return false
     }
 
     generateWords() {
@@ -40,7 +94,9 @@ class findWord {
 
             if (currentWord.length === wordLength) {
                 const isEnglishWord = checkWord(currentWord, this.wordsDict)
-                if (isEnglishWord) obj[currentWord] = ijIndex
+                if (isEnglishWord){           
+                    obj[currentWord] = ijIndex.map( (arr) => [...arr])
+                }
                 currentWord = currentWord.slice(0, -1)
                 ijIndex.pop()
                 return
@@ -57,7 +113,7 @@ class findWord {
             }
 
             this.#visited.pop()
-            this.ijIndex.pop()
+            ijIndex.pop()
             currentWord = currentWord.slice(0, -1)
 
 
@@ -67,7 +123,7 @@ class findWord {
 
         let [ possibleWords, ijIndex, obj, wordLength ] = [ {}, [], null, null ]
 
-        for (let l = 2; l <= dimension; l++) {
+        for (let l = 3; l <= dimension; l++) {
             obj = {}
             for (let i = 0; i < this.board.length; i++) {
                 for (let j = 0; j < this.board[0].length; j++) {
