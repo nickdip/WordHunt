@@ -1,9 +1,5 @@
 
 function checkWord(possibleWord, wordsDict) {
-    if (possibleWord === "CAT") {
-        console.log(possibleWord)
-    }
-    //console.log(wordsDict)
     if (wordsDict[possibleWord.slice(0,2)]) return binarySearch(wordsDict[possibleWord.slice(0,2)], possibleWord)
     return false
     }

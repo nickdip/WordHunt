@@ -2,17 +2,14 @@
 //TO DO: Reflext on which variables are defined in the constructor and private
 //consider going back to checking if it's valid after 
 
-const { readDictionary } = require("./words/createdics")
-const { checkWord } = require("./findWords")
+const { readDictionary } = require("./createdics")
+const { checkWord } = require("../searchDictionary")
 
 const readDictFun = async () => { 
     const wordsDict = await readDictionary() 
     const board = [["C", "A", "T"], ["D", "E", "F"], ["G", "H", "I"]]
     const testFindWord = new findWord(board,  wordsDict)
     const testGenerate = testFindWord.generateWords()
-    console.log(testGenerate)
-    // console.log(testGenerate)
-    // console.log(testGenerate['3'])
 }
 
 class findWord {
@@ -66,9 +63,9 @@ class findWord {
             
         }
 
+        this.ijRecord = []
         let wordTrack = ""
         this.#remainingWord = word
-
         for (let i = 0; i < this.board.length; i++) {
             for (let j = 0; j < this.board[0].length; j++) {
                 if (searching(i, j)) return true
@@ -77,6 +74,33 @@ class findWord {
 
     return false
     }
+
+
+    check(word) {
+        if (word.length < 3) {
+            console.log("Words must be at least 3 characters")
+            return -1
+        }
+        if (word.length > 9) {
+            console.log("Your word is too long! You can only use each letter once.")
+            return -1
+        }
+        if (!this.searchBoard(word)) {
+            console.log("Your word does not exist on the board")
+            return -1
+        }
+
+        if (!checkWord(word, wordsDict)) {
+            console.log("Your word is not a valid English word")
+
+            return 0
+        }
+
+        
+        console.log(`${word} added!`)
+        return 1
+        }
+    
 
     generateWords() {
 
