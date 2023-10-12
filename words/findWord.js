@@ -1,9 +1,9 @@
-//TO DO: we want to bring back searchBoard, we want to provide a different error to the person if there link is found but it's not a valid word#
-//TO DO: Reflext on which variables are defined in the constructor and private
+//TODO: we want to bring back searchBoard, we want to provide a different error to the person if there link is found but it's not a valid word#
+//TODO: Reflext on which variables are defined in the constructor and private
 //consider going back to checking if it's valid after 
 
 const { readDictionary } = require("./createdics")
-const { checkWord } = require("../searchDictionary")
+const { checkWord } = require("./searchDictionary")
 
 const readDictFun = async () => { 
     const wordsDict = await readDictionary() 
@@ -13,17 +13,18 @@ const readDictFun = async () => {
 }
 
 class findWord {
-    #visited
-    #remainingWord
     constructor(board, wordsDict) {
         this.board = board
-        this.#visited = []  //keeps track of visited spaces
         this.wordsDict = wordsDict
-        this.#remainingWord = ""
         this.ijRecord = []
     }
 
     searchBoard(word) {
+
+        const visited = []
+        let remainingWord = word
+        let wordTrack = ""
+        this.ijRecord = []
 
         if (!word) return false
 
@@ -34,19 +35,19 @@ class findWord {
 
             let ijCurrent = `${i}${j}`
 
-            if (i < 0 || i >= this.board.length || j < 0 || j >= this.board[0].length || this.#visited.includes(ijCurrent)){
+            if (i < 0 || i >= this.board.length || j < 0 || j >= this.board[0].length || visited.includes(ijCurrent)){
                 return false
             }
 
-            this.#visited.push(ijCurrent)
-            const currentLetter = this.#remainingWord[0]
+            visited.push(ijCurrent)
+            const currentLetter = remainingWord[0]
 
             if (this.board[i][j] != currentLetter) {
-                this.#visited.pop()
+                visited.pop()
                 return false 
             }
 
-            this.#remainingWord = this.#remainingWord.slice(1)
+            remainingWord = remainingWord.slice(1)
             wordTrack += currentLetter
             this.ijRecord.push([i, j])
 
@@ -56,16 +57,13 @@ class findWord {
                 }
             }
 
-            this.#visited.pop()
+            visited.pop()
             this.ijRecord.pop()
             wordTrack = wordTrack.slice(0, -1)
-            this.#remainingWord = currentLetter + this.#remainingWord
+            remainingWord = currentLetter + remainingWord
             
         }
 
-        this.ijRecord = []
-        let wordTrack = ""
-        this.#remainingWord = word
         for (let i = 0; i < this.board.length; i++) {
             for (let j = 0; j < this.board[0].length; j++) {
                 if (searching(i, j)) return true
@@ -108,7 +106,7 @@ class findWord {
 
             let ijCurrent = `${iIndex}${jIndex}`
 
-            if (iIndex < 0 || iIndex >= this.board.length || jIndex < 0 || jIndex >= this.board[0].length || this.#visited.includes(ijCurrent)){
+            if (iIndex < 0 || iIndex >= this.board.length || jIndex < 0 || jIndex >= this.board[0].length || visited.includes(ijCurrent)){
                 return
             }
 
@@ -126,7 +124,7 @@ class findWord {
                 return
             }
 
-            this.#visited.push(ijCurrent)
+            visited.push(ijCurrent)
 
             for (let const1 = -1; const1 <= 1; const1++) {
                 for (let const2 = -1; const2 <= 1; const2++) {
@@ -136,12 +134,14 @@ class findWord {
                 }
             }
 
-            this.#visited.pop()
+            visited.pop()
             ijIndex.pop()
             currentWord = currentWord.slice(0, -1)
 
 
         }
+
+        let visited = []
 
         const dimension = this.board.length * this.board[0].length
 
@@ -155,7 +155,7 @@ class findWord {
                     wordLength = l
                     searchWords(i, j, "")
                     possibleWords[wordLength] = obj
-                    this.#visited = []
+                    visited = []
                     ijIndex = []
 
 

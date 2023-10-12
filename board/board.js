@@ -1,3 +1,7 @@
+`TODO: displayNewColours() - should no longer print the board,
+    instead, it should change colours only
+    a new function should then reset the colours back to white
+    this will allow for unit testing`
 
 const chalk = require("chalk")
 const { valid } = require("semver")
@@ -51,7 +55,6 @@ class Board {
             }
         }
 
-        console.log(ijIndex)
         let newColour = "red"
         if (validEnglishWord) newColour = "green"
 
@@ -77,4 +80,4 @@ class Position {
 
 }
     
-module.exports = Board
+module.exports = { Board, Position }

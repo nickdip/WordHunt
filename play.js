@@ -3,7 +3,7 @@ const { stdin: input, stdout: output } = require('node:process');
 const rl = readline.createInterface({ input, output });
 const { readDictionary } = require("./words/createdics")
 const { findWord } = require('./words/findWord')
-const Board = require('./board/board')
+const { Board } = require('./board/board')
 
 class play {
 
