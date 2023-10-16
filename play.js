@@ -3,12 +3,18 @@ const { stdin: input, stdout: output } = require('node:process');
 const rl = readline.createInterface({ input, output });
 const { readDictionary } = require("./words/createdics")
 const { findWord } = require('./words/findWord')
-const { Board } = require('./board/board')
+const { Board } = require('./board/board');
+const { generateWordsFn } = require("./words/generateWords")
 
 class play {
 
-    constructor() {
-        this.board = new Board(3)
+    constructor(dictionary, dimension = 3) {
+        this.dimension = dimension
+        this.dictionary = dictionary
+        this.board = new Board(this.dimension)
+        this.boardArray = this.board.boardLetters
+        this.findWord = new findWord(this.boardArray, dictionary)
+        this.possibleWords = generateWordsFn(this.findWord)
     }
 
 
@@ -21,23 +27,54 @@ class play {
                     return false //does not work
                 }
                 word = word.toUpperCase()
-                let result = find.check(word) //check it's valid word
-                if (result >= 0) this.board.displayNewColours(find.ijRecord, result)
+
+                if (word.length < 3) {
+                    console.log("Words must be at least 3 letters long")
+                    return askQuestions()
+                }
+                if (word.length > this.dimension ** 2) {
+                    console.log("Words should not exceed the number of letters on the board")
+                    return askQuestions()
+                }
+                const wordsWithEqualLength = this.possibleWords[word.length]
+                if (word in wordsWithEqualLength) {
+                    this.board.displayNewColours(wordsWithEqualLength[word], true)
+                    console.log("Your word is valid!")
+                    return askQuestions()
+                }
+                
+            
+                if (this.findWord.searchBoard(word)) {
+                        console.log("Your word is not valid")
+                        this.board.displayNewColours(this.findWord.ijRecord, false)
+                        return askQuestions()
+                    }
+                    
+                else console.log("Your word is not on the board")
+                this.board.displayBoard()
+
                 return askQuestions()
-        })
-    }
-        let dictionary = await readDictionary()
-        const find = new findWord(this.board.boardLetters, dictionary)
+
+                })}
+
         setTimeout(() => {
+        let arr = []
+        for (let wordLength in this.possibleWords) {
+            arr = arr.concat(Object.keys(this.possibleWords[wordLength]))
+        }
         rl.close()
         }, 30000)
+        this.board.displayBoard()
         askQuestions()
-
 
     }
 
 
 }
 
-let newGame = new play()
-newGame.newGame()
+async function test() {
+    let dictionary = await readDictionary()
+    new play(dictionary, 4).newGame()
+}
+
+test()

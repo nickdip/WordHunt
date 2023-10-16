@@ -30,6 +30,8 @@ class findWord {
 
         const searching = (i, j) => {
 
+            console.log("HERE 3", i, j)
+
             if (wordTrack === word) return true
             
 
@@ -40,6 +42,8 @@ class findWord {
             }
 
             visited.push(ijCurrent)
+
+            console.log("HERE 4", i, j)
             const currentLetter = remainingWord[0]
 
             if (this.board[i][j] != currentLetter) {
@@ -50,6 +54,8 @@ class findWord {
             remainingWord = remainingWord.slice(1)
             wordTrack += currentLetter
             this.ijRecord.push([i, j])
+
+            console.log("HERE 5", i, j)
 
             for (let const1 = -1; const1 <= 1; const1++) {
                 for (let const2 = -1; const2 <= 1; const2++) {
@@ -86,12 +92,6 @@ class findWord {
         if (!this.searchBoard(word)) {
             console.log("Your word does not exist on the board")
             return -1
-        }
-
-        if (!checkWord(word, wordsDict)) {
-            console.log("Your word is not a valid English word")
-
-            return 0
         }
 
         
@@ -144,14 +144,17 @@ class findWord {
         let visited = []
 
         const dimension = this.board.length * this.board[0].length
+        console.log(dimension, "DIMENSION")
+        console.log(this.board, "BOARD")
 
         let [ possibleWords, ijIndex, obj, wordLength ] = [ {}, [], null, null ]
 
         for (let l = 3; l <= dimension; l++) {
+            // console.log("HERE 1")
             obj = {}
             for (let i = 0; i < this.board.length; i++) {
                 for (let j = 0; j < this.board[0].length; j++) {
-                    
+                    // console.log("HERE 2")
                     wordLength = l
                     searchWords(i, j, "")
                     possibleWords[wordLength] = obj

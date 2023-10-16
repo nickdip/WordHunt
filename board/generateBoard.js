@@ -18,30 +18,24 @@ class generateBoard {
 
     constructor(dimension, dictionary) {
         this.dimension = dimension
-        // this.board = this.generateBoard(dimension)
+        this.board = this.generateBoard(dimension)
         this.dictionary = dictionary
         this.words = []
     }
 
-    // generateBoard(dimension) {
-    //     `Create an empty board with empty strings`
-    //     let board = []
-    //     for (let i = 0; i < dimension; i++) {
-    //         let temp =[]
-    //         for (let j = 0; j < dimension; j++) {
-    //             temp.push("")
-    //         }
-    //         board.push(temp)
-    //     }
-    //     //This will not work! It's possible to generate two words that exceeds the dimensions
-    //     while (this.words.join("").length < Math.ceil(dimension * dimension / 2)) {
-    //         this.words.push(this.generateWord(this.generateWordLength()))
-
-    //     }
-
+    generateBoard(dimension) {
+        let board = []
+        let temp
+        for (let i = 0; i < 3; i++) {
+            temp = []
+            for (let j = 0; j < 3; j++) {
+                temp.push(this.generateLetter())
+            }
+            board.push(temp)
+        }
         
-    //     return board
-    // }
+        return board
+    }
 
 
     generateLetter() {
@@ -63,21 +57,21 @@ class generateBoard {
       }
          
 
-    emptyStirngsRatio (board, dimension) {
-        let count = 0
-        board.forEach( (row) => {
-            row.forEach( (letter) => {
-                if (!letter) count++
-            })
-        })
-        return count / (dimension * dimension)
+    // emptyStirngsRatio (board, dimension) {
+    //     let count = 0
+    //     board.forEach( (row) => {
+    //         row.forEach( (letter) => {
+    //             if (!letter) count++
+    //         })
+    //     })
+    //     return count / (dimension * dimension)
     
-    }
+    // }
 
-    generateWordLength() {
-        let maxWordLength = this.dimension
-        return randomWordLength = Math.floor(Math.random() * ( maxWordLength - 3)) + 3
-    }
+    // generateWordLength() {
+    //     let maxWordLength = this.dimension
+    //     return randomWordLength = Math.floor(Math.random() * ( maxWordLength - 3)) + 3
+    // }
 
     // generateWord(length) {
 
