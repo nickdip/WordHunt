@@ -57,14 +57,12 @@ describe("Board", () => {
         
     })
 
-    test("displayNewColours changes the colour of the board when a word is a valid English word", () => {
+    test("displayNewColours revert back to white", () => {
         let dimension = 3
         let board = new Board(dimension)
-        board.displayNewColours([[0,0],[0,1],[0,2]], true)
-        expect(console.log).toHaveBeenCalledTimes(dimension)
-
+        board.displayNewColours([[0,0]], true)
+        expect(board.board[0][0].colour).toEqual("white")
     })
-
 
 
 })

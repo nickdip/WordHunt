@@ -25,7 +25,7 @@ async function readDictionary() {
 
             
         }
-        // writeFiles(wordsDict)
+
         return wordsDict 
       }
   
@@ -36,21 +36,6 @@ async function readDictionary() {
   }
 
 
-
-// async function writeFiles(wordsDict) {
-    
-//     let alpha = [
-//         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-//         'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
-//       ]
-//     Promise.all(alpha.map( (letter) => fs.mkdir(`${letter}`, { recursive: true })))
-//     .then( () => {
-//     for (let key in wordsDict) {
-//         for (let word of wordsDict[key]) {
-//             fs.appendFile(`${key[0]}/${key}.txt`, word + "\n")
-//         }
-//     }})
-// }
 
 
 module.exports = { readDictionary }

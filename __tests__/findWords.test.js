@@ -1,14 +1,6 @@
 
 const { findWord } = require("../words/findWord")
-const { checkWord } = require("../words/searchDictionary")
 const { readDictionary } = require("../words/createdics")
-
-//does not manipulate board
-//returns false when there are no matches
-//recursion checks every possibility
-//returns true with a match in a straight-line
-//returns true for match in a non-straight line
-//returns true when when the board finds 'near misses' on the board
 
 let dictionary
 beforeAll( async () => {
@@ -188,7 +180,6 @@ describe("findWord", () => {
         test("generates one valid word  when provided with correct indices", () => {
             const board = [["C", "A", "T"], ["A", "A", "A"], ["A", "A", "A"]]
             const testFindWord = new findWord(board, dictionary)
-            const helper = testFindWord.generateWords()
             expect(testFindWord.generateWords()).toEqual({
                 '3': { CAT: [ [ 0, 0 ], [ 1, 1 ], [ 0, 2 ] ] },
                 '4': {},
@@ -343,84 +334,3 @@ describe("findWord", () => {
     
 })
 
-
-
-
-describe("checkWords", () => {
-
-    test("checkWord function exists", () => {
-        expect(typeof checkWord).toBe("function")
-    })
-
-    test("checkWords returns false when entering an empty string", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("", readDict())
-        expect(output).toBe(false)
-
-        
-    })
-
-    test("checkWords returns false when entering a one-letter word", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("a", readDict())
-        expect(output).toBe(false)
-
-    })
-
-    test("checkWords returns false when entering an invalid two-letter word", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("xt", readDict())
-        expect(output).toBe(false)
-
-    })
-
-    test("checkWords returns true when entering an valid two-letter word", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("as", readDict())
-        expect(output).toBe(false)
-
-    })
-
-    test("checkWords returns true when entering an valid nine-letter word", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("buzzkills", readDict())
-        expect(output).toBe(false)
-
-    })
-
-    test("checkWords returns false when entering an invalid nine-letter word", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("zzzzzzzzz", readDict())
-        expect(output).toBe(false)
-
-    })
-
-    test("checkWords returns false when entering an invalid word with valid subwords", () => {
-        const readDict = async () => { 
-            let dictionary = await readDictionary()
-            return dictionary
-        }
-        const output = checkWord("andw", readDict())
-        expect(output).toBe(false)
-
-    })
-
-})

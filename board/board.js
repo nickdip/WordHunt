@@ -6,6 +6,8 @@
 const chalk = require("chalk")
 const { valid } = require("semver")
 
+const  { letterFrequencies } = require("../words/utils")
+
 
 
 class Board {
@@ -15,13 +17,30 @@ class Board {
         this.boardLetters = this.board.map( (arr) => arr.map( (position) => position.letter))
     }
 
+
+    generateLetter() {
+
+        const randomValue = Math.random() * 100;
+      
+
+        let cumulativeFrequency = 0;
+      
+        for (const letter in letterFrequencies) {
+          cumulativeFrequency += letterFrequencies[letter]
+          if (randomValue <= cumulativeFrequency) {
+            return letter;
+          }
+        }
+        //default
+        return 'a';
+      }
+
     newBoard(dimension) {
         let board = []
-        let array = ["C", "O", "E", "I", "K", "M", "S", "T", "O"] //test
         for (let i = 0; i < dimension; i++) {
             let temp =[]
             for (let j = 0; j < dimension; j++) {
-                temp.push(new Position(array.shift(), i, j))
+                temp.push(new Position(this.generateLetter(), i, j))
             }
             board.push(temp)
         }
