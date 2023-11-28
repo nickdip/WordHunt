@@ -7,7 +7,6 @@ const { readDictionary } = require("./words/createdics")
 const { findWord } = require('./words/findWord')
 const { Board } = require('./board/board')
 const { wordScore } = require('./words/utils');
-const { read } = require('node:fs');
 
 class play {
 

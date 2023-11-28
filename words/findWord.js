@@ -82,12 +82,10 @@ class findWord {
             return { validWord: false, message: "Your word is too long! You can only use each letter once."}
         }
         if (!this.searchBoard(word)) {
-            console.log("Your word does not exist on the board")
             return { validWord: false, onBoard: false, message: "Your word does not exist on the board"}
         }
 
         if (!checkWord(word, wordsDict)) {
-            console.log("Your word is not a valid English word")
             return { onBoard: true, message: "Your word is not a valid English word"}
         }
 
