@@ -6,8 +6,10 @@ Welcome to WordHunt! A client-based game where you must search a board for conse
 
 You have 60 seconds to find as many words as you can on the board.
 
-> | T | W | I | 
-> | M | H | T | 
+> |   |   |   |
+> |---|---|---|
+> | T | W | I |
+> | M | H | T |
 > | F | I | H | 
 
 ANSWER: Possible words:'WIT',  'HIT', 'HIM',  'FIT', 'TWIT', 'WITH' 'WHIT', 'WHIM'
