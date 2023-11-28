@@ -76,27 +76,21 @@ class findWord {
 
     check(word) {
         if (word.length < 3) {
-            console.log("Words must be at least 3 characters")
-            return -1
+            return { validWord: false, message: "Words must be at least 3 characters"}
         }
         if (word.length > 9) {
-            console.log("Your word is too long! You can only use each letter once.")
-            return -1
+            return { validWord: false, message: "Your word is too long! You can only use each letter once."}
         }
         if (!this.searchBoard(word)) {
-            console.log("Your word does not exist on the board")
-            return -1
+            return { validWord: false, onBoard: false, message: "Your word does not exist on the board"}
         }
 
         if (!checkWord(word, wordsDict)) {
-            console.log("Your word is not a valid English word")
-
-            return 0
+            return { onBoard: true, message: "Your word is not a valid English word"}
         }
 
         
-        console.log(`${word} added!`)
-        return 1
+        return { validWord: true, onBoard: true, message: "Your word is valid! Word Score: "}
         }
     
 
