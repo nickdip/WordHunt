@@ -24,7 +24,7 @@ Once you have cloned the repo, run 'npm install/yarn run' to install the relevan
 
 ## Getting Started
 
-When it the main directory, run 'node play.js' to run the game
+When in the main directory, run 'node play.js' to run the game
 
 
 ## Further
